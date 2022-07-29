@@ -1,5 +1,5 @@
 <?php 
-$base_url = "https://gogoanimetv.ga";
+$base_url = "https://{$_SERVER['SERVER_NAME']}";
 $website_name = "GogoAnime";
 $apiLink = "https://gogoanime-tv.herokuapp.com";
 
