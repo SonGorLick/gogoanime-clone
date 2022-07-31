@@ -91,8 +91,8 @@ if ($page == ""){
                                    foreach($json as $newSeason)  { 
                                ?>
                                        <li>
-                                           <div class="img"><a href="/<?=$newSeason['animeId']?>" title="<?=$newSeason['animeTitle']?>"><img src="<?=$newSeason['imgUrl']?>" alt="<?=$newSeason['animeTitle']?>" /></a>
-                                               </div><p class="name"><a href="/<?=$newSeason['animeId']?>" title="<?=$newSeason['animeTitle']?>"><?=$newSeason['animeTitle']?></a></p>
+                                           <div class="img"><a href="/category/<?=$newSeason['animeId']?>" title="<?=$newSeason['animeTitle']?>"><img src="<?=$newSeason['imgUrl']?>" alt="<?=$newSeason['animeTitle']?>" /></a>
+                                               </div><p class="name"><a href="/category/<?=$newSeason['animeId']?>" title="<?=$newSeason['animeTitle']?>"><?=$newSeason['animeTitle']?></a></p>
                                                <p class="released"><?=$newSeason['status']?></p>
                                        </li>
                                        <?php } ?>

@@ -94,8 +94,8 @@ if ($page == ""){
                                    foreach($json as $movies)  { 
                                ?>
                                        <li>
-                                           <div class="img"><a href="/<?=$movies['animeId']?>" title="<?=$movies['animeTitle']?>"><img src="<?=$movies['imgUrl']?>" alt="<?=$movies['animeTitle']?>" /></a>
-                                               </div><p class="name"><a href="/<?=$movies['animeId']?>" title="<?=$movies['animeTitle']?>"><?=$movies['animeTitle']?></a></p>
+                                           <div class="img"><a href="/category/<?=$movies['animeId']?>" title="<?=$movies['animeTitle']?>"><img src="<?=$movies['imgUrl']?>" alt="<?=$movies['animeTitle']?>" /></a>
+                                               </div><p class="name"><a href="/category/<?=$movies['animeId']?>" title="<?=$movies['animeTitle']?>"><?=$movies['animeTitle']?></a></p>
                                                <p class="released"><?=$movies['status']?></p>
                                        </li>
                                 <?php } ?>
