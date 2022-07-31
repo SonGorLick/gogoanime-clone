@@ -3,14 +3,15 @@ require_once('./php/info.php');
 $parts=parse_url($_SERVER['REQUEST_URI']); 
 $page_url=explode('/', $parts['path']);
 $url = $page_url[count($page_url)-1];
-// $url = "naruto-dub-episode-220";
-$json = file_get_contents("https://api-indianime.herokuapp.com/getEpisode/$url");
+//$url = "naruto-dub-episode-220";
+$json = file_get_contents("$apiLink/getEpisode/$url");
 $anime = json_decode($json, true);
+$ep_num = $anime['ep_num'];
 
 $categoryURL = $anime['anime_info'];
-$json2 = file_get_contents("https://api-indianime.herokuapp.com/getAnime/$categoryURL");
+$json2 = file_get_contents("$apiLink/getAnime/$categoryURL");
 $fetchDetails = json_decode($json2, true); 
-$episodeArray = $fetchDetails['episode_id'];     
+$episodeArray = $fetchDetails['episode_id'];    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,11 +47,11 @@ $episodeArray = $fetchDetails['episode_id'];
   <link rel="stylesheet" type="text/css" href="<?=$base_url?>/css/style.css" />
   <script type="text/javascript" src="<?=$base_url?>/js/libraries/jquery.js"></script>
   <script>
-                var base_url = 'https://' + document.domain + '/';
-                var base_url_cdn_api = 'https://ajax.gogo-load.com/';
-                var api_anclytic = 'https://ajax.gogo-load.com/anclytic-ajax.html';
+    var base_url = 'https://' + document.domain + '/';
+    var base_url_cdn_api = 'https://ajax.gogo-load.com/';
+    var api_anclytic = 'https://ajax.gogo-load.com/anclytic-ajax.html';
    </script>
-  <script type="text/javascript" src="https://cdn.gogocdn.net/files/gogo/js/main.js?v=6.9"></script>
+  <script type="text/javascript" src="https://cdn.gogocdn.net/files/gogo/js/main.js"></script>
 
   <?php require_once('./php/advertisments/popup.html'); ?>
 
@@ -122,7 +123,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                         <div class="anime_video_body_watch_items load">
                                             <div class="play-video">
                                                 <iframe
-                                                    src="<?=$anime['video']?>"
+                                                    src="https://animexninja-api.dhvitop.repl.co/watch/<?=$categoryURL?>/<?=$ep_num?>"
                                                     allowfullscreen="true" frameborder="0" marginwidth="0"
                                                     marginheight="0" scrolling="no"></iframe>
                                             </div>
@@ -142,8 +143,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                 
                                 <div class="clr"></div>
                                 <div class="clr"></div>
-                                <div style="margin-top:20px;color:#00a651;font-size:18px;">Please scroll down for
-                                    servers choosing, thank you.</div>
+                                <div style="margin-top:20px;color:#00a651;font-size:18px;">Please scroll down for servers choosing, thank you.</div>
                                 <br>
 
                                 
@@ -153,6 +153,12 @@ $episodeArray = $fetchDetails['episode_id'];
                                     <ul>
                                         <li class="anime">
                                             <a href="#" class="active" rel="1"
+                                                data-video="https://animexninja-api.dhvitop.repl.co/watch/<?=$categoryURL?>/<?=$ep_num?>"><i
+                                                    class="iconlayer-anime"></i>No Ads<span>Choose this
+                                                    server</span></a>
+                                        </li>
+                                        <li class="anime">
+                                            <a href="#" rel="13"
                                                 data-video="<?=$anime['video']?>"><i
                                                     class="iconlayer-anime"></i>Vidstreaming<span>Choose this
                                                     server</span></a>
