@@ -12,4 +12,4 @@ RewriteRule ^genre/([a-zA-Z0-9-=_]+) genre/genre.php
 RewriteRule ^anime-list-([a-zA-Z0-9-=_]+) anime-list-[A-Z].php
 
 
-ErrorDocument 404 /404.html
+ErrorDocument 404 /404.php
