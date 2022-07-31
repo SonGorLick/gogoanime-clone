@@ -3,7 +3,7 @@ require_once('./php/info.php');
 $parts=parse_url($_SERVER['REQUEST_URI']); 
 $page_url=explode('/', $parts['path']);
 $url = $page_url[count($page_url)-1];
-//$url = "naruto-dub-episode-220";
+//$url = "tokyo-revengers-episode-22";
 $json = file_get_contents("$apiLink/getEpisode/$url");
 $anime = json_decode($json, true);
 $ep_num = $anime['ep_num'];
@@ -36,11 +36,6 @@ $episodeArray = $fetchDetails['episode_id'];
   <meta property="og:url" content="" />
   <meta property="og:image" content="<?=$fetchDetails['imageUrl']?>" />
   <meta property="og:image:secure_url" content="<?=$fetchDetails['imageUrl']?>" />
-
-  <meta property="twitter:card" content="summary" />
-  <meta property="twitter:title" content="Watch <?=$anime['animeNameWithEP']?> at <?=$website_name?>" />
-  <meta property="twitter:description" content="<?=substr($fetchDetails['synopsis'],0, 150)?> ... at <?=$website_name?>" />
-
 
   <link rel="canonical" href="<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>" />
   <link rel="alternate" hreflang="en-us" href="<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>" />
@@ -226,16 +221,16 @@ $episodeArray = $fetchDetails['episode_id'];
                             </div>
                             <div class="clr"></div>
                             <div class="anime_video_body">
-                            <ul id="episode_page"><li><a href="javascript:void(0)">0-<?=count($fetchDetails['episode_id']);?></a></li></ul>
-                                <div class="clr"></div>
-                                <ul id="episode_related">
-                                <?php foreach ($episodeArray as $episodes){?><li><a class="<?php if ($episodes['episodeId'] == $url ) {echo "active"; }?>" href="/<?=$episodes['episodeId']?>"><div class="name"><span>EP</span> <?=$episodes['episodeNum']?></div><div class="vien"></div><div class="cate"><?php $str = $fetchDetails['name'];
-                                  $last_word_start = strrpos ( $str , " ") + 1;
-                                  $last_word_end = strlen($str) - 1;
-                                  $last_word = substr($str, $last_word_start, $last_word_end);
-                                  if ($last_word == "(Dub)"){echo "DUB";} else {echo "SUB";}?></div></a></li> <?php } ?>
-                                </ul>
-                                <div class="clr"></div>
+                              
+                            <input type="hidden" value="<?=$anime['movie_id']?>" id="movie_id" class="movie_id"/>
+                            <input type="hidden" value="<?=$anime['ep_num']?>" id="default_ep" class="default_ep"/>
+                            <input type="hidden" value="<?=$anime['alias']?>" id="alias_anime" class="alias_anime"/>
+                            <ul id="episode_page">
+                                <?=$anime['episode_page']?>
+                            </ul>
+                              <div class="clr"></div>
+                              <div id="load_ep"></div>
+                              <div class="clr"></div>
                             </div>
                         </div>
                         <div class="clr"></div>
@@ -262,7 +257,6 @@ $episodeArray = $fetchDetails['episode_id'];
                                     <h2>RECENT RELEASE</h2>
                                 </div>
                                 <div class="recent">
-                                    <!-- begon -->
                                     <div id="scrollbar2">
                                         <div class="scrollbar">
                                             <div class="track">
@@ -277,7 +271,6 @@ $episodeArray = $fetchDetails['episode_id'];
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- tao thanh cuon 1-->
                                 </div>
                             </div>
                         </div>
@@ -363,19 +356,21 @@ $episodeArray = $fetchDetails['episode_id'];
     <div class="mask"></div>
     <script type="text/javascript" src="<?=$base_url?>/js/files/combo.js"></script>
     <script type="text/javascript" src="<?=$base_url?>/js/files/jquery.tinyscrollbar.min.js"></script>
-    <div class="notice-400"
-    style=" z-index:99999;position: fixed;bottom: 0;text-align: center;width: 100%; left: 0;padding: 10px;background: #939393;color: white;">
-    We moved site to <a href="<?=$base_url?>" title="Gogoanime" alt="Gogoanime"
-      style="color: #ffc119"><?=$website_name?></a>. Please bookmark new site. Thank you!
-    </div>
-
-
+    <?php include('./php/include/footer.php'); ?>
+    <script>
+    if(document.getElementById('episode_page')){
+      var ep_start = $('#episode_page a.active').attr('ep_start');
+      var ep_end = $('#episode_page a.active').attr('ep_end');
+      var id = $("input#movie_id").val();
+      var default_ep = $("input#default_ep").val();
+      var alias = $("input#alias_anime").val();
+      loadListEpisode('#episode_page a.active',ep_start,ep_end,id,default_ep,alias);
+    }
+  </script>
     <script>
         if (document.getElementById('scrollbar2')) {
             $('#scrollbar2').tinyscrollbar();
         }
     </script>
-
 </body>
-
 </html>
