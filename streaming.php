@@ -149,7 +149,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                         <li class="anime">
                                             <a href="#" class="active" rel="1"
                                                 data-video="https://animexninja-api.dhvitop.repl.co/watch/<?=$categoryURL?>/<?=$ep_num?>"><i
-                                                    class="iconlayer-anime"></i>No Ads<span>Choose this
+                                                    class="iconlayer-server hydrax"></i>No Ads<span>Choose this
                                                     server</span></a>
                                         </li>
                                         <li class="anime">
