@@ -1,4 +1,8 @@
 <?php require_once('./php/info.php'); 
+$page = $_GET['page']; 
+if ($page == ""){
+    $page = 1;
+};
 $query = $_GET['keyword']; 
 $query = str_replace(' ', '%20', $query);
 ?>
@@ -61,44 +65,28 @@ $query = str_replace(' ', '%20', $query);
                                                         <div class="anime_name new_series">
                                                                 <i class="icongec-new_series i_pos"></i>
                                                                 <h2>Result Anime Search</h2>
+                                                                <div class="anime_name_pagination">
+			                                           <div class="pagination">
+				                                   <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/searchPage/$query/$page");$pagination = json_decode($pagination, true); echo $pagination['pagination'] ?></ul></div>
+		                                                </div>
                                                         </div>
                                                         <div class="last_episodes">
                                                                 <ul class="items">
                                                                 <?php
-                                                                  $json = file_get_contents("$apiLink/search/$query/1");
+                                                                  $json = file_get_contents("$apiLink/search/$query/$page");
                                                                   $json = json_decode($json, true);
-                                                                  foreach($json as $searchResult1)  { 
+                                                                  foreach($json as $searchResult)  { 
                                                                 ?>
                                                                         <li>
                                                                             <div class="img">
-                                                                                        <a href="/category/<?=$searchResult1['anime_id']?>" title="<?=$searchResult1['name']?>">
-                                                                                                <img src="<?=$searchResult1['img_url']?>" alt="<?=$searchResult1['name']?>" />
-                                                                                        </a>
-                                                                                </div>
-                                                                                <p class="name"><a href="/category/<?=$searchResult1['anime_id']?>" title="<?=$searchResult1['name']?>"><?=$searchResult1['name']?></a>
-                                                                                </p>
-                                                                                <p class="released"><?=$searchResult1['status']?></p>
+                                                                                <a href="/category/<?=$searchResult['anime_id']?>" title="<?=$searchResult['name']?>">
+                                                                                        <img src="<?=$searchResult['img_url']?>" alt="<?=$searchResult['name']?>" />
+                                                                                </a>
+                                                                            </div>
+                                                                                <p class="name"><a href="/category/<?=$searchResult['anime_id']?>" title="<?=$searchResult['name']?>"><?=$searchResult['name']?></a></p>
+                                                                                <p class="released"><?=$searchResult['status']?></p>
                                                                         </li>
                                                                 <?php } ?>
-                                                                <?php
-                                                                  $json = file_get_contents("$apiLink/search/$query/2");
-                                                                  $json = json_decode($json, true);
-                                                                  foreach($json as $searchResult2)  { 
-                                                                ?>
-                                                                        <li>
-                                                                            <div class="img">
-                                                                                        <a href="/category/<?=$searchResult2['anime_id']?>" title="<?=$searchResult2['name']?>">
-                                                                                                <img src="<?=$searchResult2['img_url']?>" alt="<?=$searchResult2['name']?>" />
-                                                                                        </a>
-                                                                                </div>
-                                                                                <p class="name"><a href="/category/<?=$searchResult2['anime_id']?>" title="<?=$searchResult2['name']?>"><?=$searchResult1['name']?></a>
-                                                                                </p>
-                                                                                <p class="released"><?=$searchResult2['status']?></p>
-                                                                        </li>
-                                                                <?php } ?>
-                                                                If you can't find Anime with keyword '<?=$query?>'. You can find all anime at 
-                                                                <a href="#" style="color:#20cbd4;">Anime List</a>
-                                                                <br /><br />
                                                                 </ul>
                                                         </div>
                                                 </div>
@@ -205,11 +193,10 @@ $query = str_replace(' ', '%20', $query);
         <div class="clr"></div>
         <div class="mask"></div>
         <script type="text/javascript" src="<?=$base_url?>/js/files/combo.js"></script>
-    <script type="text/javascript" src="<?=$base_url?>/js/files/jquery.tinyscrollbar.min.js"></script>
-        <div class="notice-400"
-                style=" z-index:99999;position: fixed;bottom: 0;text-align: center;width: 100%; left: 0;padding: 10px;background: #939393;color: white;">
-                We moved site to <a href="<?=$base_url?>" title="Gogoanime" alt="Gogoanime"
-                        style="color: #ffc119">GogoAnime</a>. Please bookmark new site. Thank you!</div>
+        <script type="text/javascript" src="<?=$base_url?>/js/files/jquery.tinyscrollbar.min.js"></script>
+
+        <?php include('./php/include/footer.php'); ?>
+
         <script>
                 if (document.getElementById('scrollbar2')) {
                         $('#scrollbar2').tinyscrollbar();
