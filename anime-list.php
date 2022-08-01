@@ -62,10 +62,7 @@ if ($page == ""){
                                     <div class="pagination">
                                         <ul class='pagination-list'>
                                         <?php 
-                                        // include the PaginationLinks class
                                         require_once './php/pagination.php';
-                                        
-                                        // output the links for page 5 of 9, with custom formatting
                                         echo PaginationLinks::create(
                                             $page,
                                             $animeList,

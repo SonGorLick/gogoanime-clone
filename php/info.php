@@ -1,5 +1,5 @@
 <?php 
-$base_url = "https://{$_SERVER['SERVER_NAME']}";
+$base_url = "//{$_SERVER['SERVER_NAME']}:8888";
 $website_name = "GogoAnime";
 $apiLink = "https://gogoanime-tv.herokuapp.com";
 
@@ -76,7 +76,6 @@ $school = "78";
 $seinen = "40";
 $shoujo = "36";
 $shounen = "119";
-$sliceOfLife = "slice-of-life";
 $space = "21";
 $sports = "25";
 $supernatural = "75";
