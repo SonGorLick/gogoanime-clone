@@ -58,13 +58,7 @@
 
                 </section>
                  <section class="content_right">
-                    <div class="headnav_center">
-                            <div class="anime_name adsverting">
-                                <i class="icongec-adsverting i_pos"></i>
-                                <h2>ADVERTISEMENTS</h2>
-                            </div>
-                            <?php include('./php/sidenav/advertisment.htm'); ?>
-                    </div>
+                    
                                         
                     <div class="clr"></div>
                                             <div class="main_body">
@@ -78,7 +72,7 @@
           <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
             <div class="viewport">
                  <div class="overview">
-               			<?php require('./php/sidenav/recentRelease.php'); ?>
+               			<?php require('./php/include/recentRelease.php'); ?>
                  </div>
             </div>
         </div>	
@@ -92,7 +86,7 @@
 	#load_ads_2.sticky{position:fixed;top: 0;}
     #scrollbar2 .viewport { height: 1000px !important; }
 </style>
-                                <?php include('./php/sidenav/sub-category.html');?>
+                                <?php include('./php/include/sub-category.html');?>
                  </section>                                                                              
             </section>                
             <div class="clr"></div>

@@ -1,31 +1,35 @@
-<?php require_once('../php/info.php'); ?>
+<?php 
+require_once('../php/info.php');
+$page = $_GET['page']; 
+if ($page == ""){
+    $page = 1;
+}
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 
 <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="shortcut icon" href="<?=$base_url?>/img/favicon.ico">
-
-        <title><?=$website_name?> | Privacy</title>
-
+        <link rel="shortcut icon" href="<?=$base_url?>/img/favicon.ico" />
+        <title>List ongoing Anime at Gogoanime</title>
         <meta name="robots" content="index, follow" />
-        <meta name="description" content="Watch anime online in English. You can watch free series and movies online and English subtitle.">
-        <meta name="keywords" content="gogoanime,watch anime, anime online, free anime, english anime, sites to watch anime">
+        <meta name="description" content="List ongoing Anime at Gogoanime">
+        <meta name="keywords" content="List ongoing Anime, Ongoing Anime">
         <meta itemprop="image" content="<?=$base_url?>/img/logo.png" />
 
         <meta property="og:site_name" content="Gogoanime" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="<?=$website_name?> | Privacy" />
-        <meta property="og:description" content="Watch anime online in English. You can watch free series and movies online and English subtitle.">
+        <meta property="og:title" content="List ongoing Anime at Gogoanime" />
+        <meta property="og:description" content="List ongoing Anime at Gogoanime">
         <meta property="og:url" content="" />
         <meta property="og:image" content="<?=$base_url?>/img/logo.png" />
         <meta property="og:image:secure_url" content="<?=$base_url?>/img/logo.png" />
 
         <meta property="twitter:card" content="summary" />
-        <meta property="twitter:title" content="<?=$website_name?> | Privacy" />
-        <meta property="twitter:description" content="Watch anime online in English. You can watch free series and movies online and English subtitle." />
+        <meta property="twitter:title" content="List ongoing Anime at Gogoanime" />
+        <meta property="twitter:description" content="List ongoing Anime at Gogoanime" />
 
         <link rel="canonical" href="<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>" />
         <link rel="alternate" hreflang="en-us" href="<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>" />
@@ -34,9 +38,8 @@
 
         <link rel="stylesheet" type="text/css" href="<?=$base_url?>/css/style.css" />
 
-        <?php require_once('../php/advertisments/popup.html'); ?>
-
         <script type="text/javascript" src="<?=$base_url?>/js/libraries/jquery.js"></script>
+        <?php require_once('../php/advertisments/popup.html'); ?>
         <script>
                 var base_url = 'https://' + document.domain + '/';
                 var base_url_cdn_api = 'https://ajax.gogo-load.com/';
@@ -50,46 +53,35 @@
         <div id="wrapper_inside">
                 <div id="wrapper">
                         <div id="wrapper_bg">
-                           <?php require('../php/include/header.php'); ?>
+                                <?php require_once('../php/include/header.php'); ?>
                                 <section class="content">
                                         <section class="content_left">
 
                                                 <div class="main_body">
-                                                        <div class="anime_name ongoing">
-                                                                <div class="anime_name_img_ongoing"></div>
-                                                                <h2>privacy</h2>
+                                                        <div class="anime_name anime_movies">
+                                                                <i class="icongec-anime_movies i_pos"></i>
+                                                                <h2>ONGOING ANIME</h2>
+                                                                <div class="anime_name_pagination">
+                                                                        <div class="pagination">
+                                                                                <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/ongoingPage/$page");$pagination = json_decode($pagination, true); echo str_replace("active","selected",$pagination['pagination']) ?> 
+                                                                        
+                                                                        </div>
+                                                                </div>
                                                         </div>
-                                                        <div class="content_privacy" style="color:#FFF; padding: 20px;">
-                                                                <strong>Cookies &amp; 3rd Party Advertisements</strong>
-                                                                <p>Google, as a third party vendor, uses cookies to
-                                                                        serve ads on your site. Google's use of the DART
-                                                                        cookie enables it to serve ads to your users
-                                                                        based on their visit to your sites and other
-                                                                        sites on the Internet. Users may opt out of the
-                                                                        use of the DART cookie by visiting the <a
-                                                                                href="https://www.google.com/privacy_ads.html"
-                                                                                target="_blank" rel="nofollow">Google ad
-                                                                                and content network privacy policy</a>.
-                                                                </p>
-                                                                <p>We allow third-party companies to serve ads and/or
-                                                                        collect certain anonymous information when you
-                                                                        visit our web site. These companies may use
-                                                                        non-personally identifiable information (e.g.,
-                                                                        click stream information, browser type, time and
-                                                                        date, subject of advertisements clicked or
-                                                                        scrolled over) during your visits to this and
-                                                                        other Web sites in order to provide
-                                                                        advertisements about goods and services likely
-                                                                        to be of greater interest to you. These
-                                                                        companies typically use a cookie or third party
-                                                                        web beacon to collect this information. To learn
-                                                                        more about this behavioral advertising practice
-                                                                        or to opt-out of this type of advertising, you
-                                                                        can visit <a
-                                                                                href="https://www.networkadvertising.org/managing/opt_out.asp"
-                                                                                target="_blank"
-                                                                                rel="nofollow">https://www.networkadvertising.org/managing/opt_out.asp</a>.
-                                                                </p>
+                                                        <div class="last_episodes">
+                                                                <ul class="items">
+                                                                <?php
+                                                                    $json = file_get_contents("$apiLink/getOngoing/$page");
+                                                                    $json = json_decode($json, true);
+                                                                    foreach($json as $ongoingA)  { 
+                                                                ?>
+                                                                        <li>
+                                                                            <div class="img"><a href="/category/<?=$ongoingA['animeId']?>" title="<?=$ongoingA['animeTitle']?>"><img src="<?=$ongoingA['imgUrl']?>" alt="<?=$ongoingA['animeTitle']?>" /></a>
+                                                                                </div><p class="name"><a href="/category/<?=$ongoingA['animeId']?>" title="<?=$ongoingA['animeTitle']?>"><?=$ongoingA['animeTitle']?></a></p>
+                                                                                <p class="released"><?=$ongoingA['status']?></p>
+                                                                        </li>
+                                                                        <?php } ?>
+                                                                </ul>
                                                         </div>
                                                 </div>
 
@@ -208,9 +200,10 @@
         <script type="text/javascript" src="<?=$base_url?>/js/files/combo.js"></script>
         <script type="text/javascript" src="<?=$base_url?>/js/files/jquery.tinyscrollbar.min.js"></script>
         <div class="notice-400"
-                style=" z-index:99999;position: fixed;bottom: 0;text-align: center;width: 100%; left: 0;padding: 10px;background: #939393;color: white;">
-                We moved site to <a href="<?=$base_url?>" title="<?=$website_name?>" alt="<?=$website_name?>"
-                        style="color: #ffc119"><?=$website_name?></a>. Please bookmark new site. Thank you!</div>
+        style=" z-index:99999;position: fixed;bottom: 0;text-align: center;width: 100%; left: 0;padding: 10px;background: #939393;color: white;">
+        We moved site to <a href="<?=$base_url?>" title="Gogoanime" alt="Gogoanime"
+          style="color: #ffc119"><?=$website_name?></a>. Please bookmark new site. Thank you!
+        </div>
         <script>
                 if (document.getElementById('scrollbar2')) {
                         $('#scrollbar2').tinyscrollbar();

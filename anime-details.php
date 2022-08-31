@@ -69,7 +69,7 @@ $episodeArray = $fetchDetails['episode_id'];
                   <p class="type"><span>Genre: </span> <?php echo implode(', ', $fetchDetails['genres'])?></p>
                   <p class="type"><span>Released: </span><?=$fetchDetails['released']?></p>
                   <p class="type"><span>Status: </span>
-                    <a href="<?php if ($fetchDetails['status'] == 'Completed') {echo "/completed-anime"; }   else  {echo "/ongoing-anime";} ?>" title="<?=$fetchDetails['status']?> Anime"><?=$fetchDetails['status']?></a>
+                    <a href="<?php if ($fetchDetails['status'] == 'Completed') {echo "/status/completed"; }   else  {echo "/status/ongoing";} ?>" title="<?=$fetchDetails['status']?> Anime"><?=$fetchDetails['status']?></a>
                   </p>
                   <p class="type"><span>Other name: </span><?=$fetchDetails['othername']?></p>
                 </div>
@@ -127,14 +127,6 @@ $episodeArray = $fetchDetails['episode_id'];
             <div class="clr"></div>
           </section>
           <section class="content_right">
-            <div class="headnav_center">
-              <div class="anime_name adsverting">
-                <i class="icongec-adsverting i_pos"></i>
-                <h2>ADVERTISEMENTS</h2>
-              </div>
-              <?php require_once('./php/sidenav/advertisment.htm'); ?>
-            </div>
-
             <div class="clr"></div>
             <div class="main_body">
               <div class="main_body_black">
@@ -154,7 +146,7 @@ $episodeArray = $fetchDetails['episode_id'];
                     </div>
                     <div class="viewport">
                       <div class="overview">
-                        <?php require_once('./php/sidenav/recentRelease.php'); ?>
+                        <?php require_once('./php/include/recentRelease.php'); ?>
                       </div>
                     </div>
                   </div>
@@ -215,7 +207,7 @@ $episodeArray = $fetchDetails['episode_id'];
               window.onload = abcd;
               window.onscroll = scrollFunction;
             </script>
-            <?php require_once('./php/sidenav/sub-category.html'); ?>
+            <?php require_once('./php/include/sub-category.html'); ?>
           </section>
         </section>
         <div class="clr"></div>

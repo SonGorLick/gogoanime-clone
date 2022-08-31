@@ -67,7 +67,7 @@ $query = str_replace(' ', '%20', $query);
                                                                 <h2>Result Anime Search</h2>
                                                                 <div class="anime_name_pagination">
 			                                           <div class="pagination">
-				                                   <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/searchPage/$query/$page");$pagination = json_decode($pagination, true); echo $pagination['pagination'] ?></ul></div>
+				                                   <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/searchPage/$query/$page");$pagination = json_decode($pagination, true); echo str_replace("active","selected",$pagination['pagination']) ?></ul></div>
 		                                                </div>
                                                         </div>
                                                         <div class="last_episodes">
@@ -93,79 +93,87 @@ $query = str_replace(' ', '%20', $query);
 
                                         </section>
                                         <section class="content_right">
-                                                <div class="headnav_center">
-                                                        <div class="anime_name adsverting">
-                                                                <i class="icongec-adsverting i_pos"></i>
-                                                                <h2>ADVERTISEMENTS</h2>
-                                                        </div>
-                                                        <?php require_once('./php/sidenav/advertisment.htm'); ?>
+                                
+                        
+                                        <div class="main_body">
+                            <div class="main_body_black">
+                                <div class="anime_name ongoing">
+                                    <i class="icongec-ongoing i_pos"></i>
+                                    <h2>RECENT RELEASE</h2>
+                                </div>
+                                <div class="recent">
+                                    <div id="scrollbar2">
+                                        <div class="scrollbar">
+                                            <div class="track">
+                                                <div class="thumb">
+                                                    <div class="end"></div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="viewport">
+                                            <div class="overview">
+                                               <?php require_once('./php/include/recentRelease.php'); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                                <div class="clr"></div>
+                                                <div id="load_ads_2">
+                            <div id="media.net sticky ad" style="display: inline-block">
+                            </div>
+                        </div>
+                        <style type="text/css">
+                            #load_ads_2 {
+                                width: 300px;
+                            }
 
-                                                <div class="clr"></div>
-                                                <div class="main_body">
-                                                        <div class="main_body_black">
-                                                                <div class="anime_name ongoing">
-                                                                        <i class="icongec-ongoing i_pos"></i>
-                                                                        <h2>RECENT RELEASE</h2>
-                                                                </div>
-                                                                <div class="recent">
-                                                                        <!-- begon -->
-                                                                        <div id="scrollbar2">
-                                                                                <div class="scrollbar">
-                                                                                        <div class="track">
-                                                                                                <div class="thumb">
-                                                                                                        <div
-                                                                                                                class="end">
-                                                                                                        </div>
-                                                                                                </div>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <div class="viewport">
-                                                                                        <div class="overview">
-                                                                                                <?php require_once('./php/sidenav/recentRelease.php'); ?>
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-                                                                        <!-- tao thanh cuon 1-->
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="clr"></div>
-                                                <script>
-                                                        var leftamt;
-                                                        function scrollFunction() {
-                                                                var scamt = (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
-                                                                var element = document.getElementById("media.net sticky ad");
-                                                                if (scamt > leftamt) {
-                                                                        var leftPosition = element.getBoundingClientRect().left;
-                                                                        element.className = element.className.replace(/(?:^|\s)fixclass(?!\S)/g, '');
-                                                                        element.className += " fixclass";
-                                                                        element.style.left = leftPosition + 'px';
-                                                                }
-                                                                else {
-                                                                        element.className = element.className.replace(/(?:^|\s)fixclass(?!\S)/g, '');
-                                                                }
-                                                        }
-                                                        function getElementTopLeft(id) {
-                                                                var ele = document.getElementById(id);
-                                                                var top = 0;
-                                                                var left = 0;
-                                                                while (ele.tagName != "BODY") {
-                                                                        top += ele.offsetTop;
-                                                                        left += ele.offsetLeft;
-                                                                        ele = ele.offsetParent;
-                                                                }
-                                                                return { top: top, left: left };
-                                                        }
-                                                        function abcd() {
-                                                                TopLeft = getElementTopLeft("media.net sticky ad");
-                                                                leftamt = TopLeft.top;
-                                                                //leftamt -= 10;
-                                                        }
-                                                        window.onload = abcd;
-                                                        window.onscroll = scrollFunction;
-                                                </script>
-                                                <?php require_once('./php/sidenav/sub-category.html'); ?>
+                            #load_ads_2.sticky {
+                                position: fixed;
+                                top: 0;
+                            }
+
+                            #scrollbar2 .viewport {
+                                height: 1000px !important;
+                            }
+                        </style>
+                        <script>
+                            var leftamt;
+                            function scrollFunction() {
+                                var scamt = (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+                                var element = document.getElementById("media.net sticky ad");
+                                if (scamt > leftamt) {
+                                    var leftPosition = element.getBoundingClientRect().left;
+                                    element.className = element.className.replace(/(?:^|\s)fixclass(?!\S)/g, '');
+                                    element.className += " fixclass";
+                                    element.style.left = leftPosition + 'px';
+                                }
+                                else {
+                                    element.className = element.className.replace(/(?:^|\s)fixclass(?!\S)/g, '');
+                                }
+                            }
+                            function getElementTopLeft(id) {
+                                var ele = document.getElementById(id);
+                                var top = 0;
+                                var left = 0;
+                                while (ele.tagName != "BODY") {
+                                    top += ele.offsetTop;
+                                    left += ele.offsetLeft;
+                                    ele = ele.offsetParent;
+                                }
+                                return { top: top, left: left };
+                            }
+                            function abcd() {
+                                TopLeft = getElementTopLeft("media.net sticky ad");
+                                leftamt = TopLeft.top;
+                                //leftamt -= 10;
+                            }
+                            window.onload = abcd;
+                            window.onscroll = scrollFunction;
+                        </script>
+                                                
+                                                <?php require_once('./php/include/sub-category.html'); ?>
                                         </section>
                                 </section>
                                 <div class="clr"></div>

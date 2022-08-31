@@ -87,22 +87,22 @@
                                 <div class="last_episodes loaddub">
                                     <ul class="items">
                                         <?php
-                                          $json = file_get_contents("$apiLink/getRecent/1");
+                                          $json = file_get_contents("$apiLink/getRecent/1/1");
                                           $json = json_decode($json, true);
                                           foreach($json as $recentRelease)  { 
                                         ?>
                                         <li>
                                             <div class="img">
-                                                <a href="/<?=$recentRelease['animeLink']?>"
+                                                <a href="/<?=$recentRelease['episodeId']?>"
                                                     title="<?=$recentRelease['name']?>">
                                                     <img src="<?=$recentRelease['imgUrl']?>"
                                                         alt="<?=$recentRelease['name']?>" />
                                                     <div class="type ic-SUB"></div>
                                                 </a>
                                             </div>
-                                            <p class="name"><a href="/<?=$recentRelease['animeLink']?>"
+                                            <p class="name"><a href="/<?=$recentRelease['episodeId']?>"
                                                     title="<?=$recentRelease['name']?>"><?=$recentRelease['name']?></a></p>
-                                            <p class="episode"><?=$recentRelease['episodeNum']?></p>
+                                            <p class="episode">Episode <?=$recentRelease['episodeNum']?></p>
                                         </li>
                                         <?php } ?>
                                     </ul>
@@ -143,13 +143,6 @@
 
                     </section>
                     <section class="content_right">
-                        <div class="headnav_center">
-                            <div class="anime_name adsverting">
-                                <i class="icongec-adsverting i_pos"></i>
-                                <h2>ADVERTISEMENTS</h2>
-                            </div>
-                            <?php require_once('./php/sidenav/advertisment.htm'); ?>
-                        </div>
                         <div class="main_body">
                             <div class="main_body_black">
                                 <div class="anime_name anime_info">
@@ -236,7 +229,7 @@
                                 </div>
                             </div>
                         </div>
-                        <?php require_once('./php/sidenav/sub-category.html'); ?>
+                        <?php require_once('./php/include/sub-category.html'); ?>
                     </section>
                 </section>
                 <div class="clr"></div>

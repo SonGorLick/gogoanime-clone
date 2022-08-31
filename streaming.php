@@ -3,7 +3,7 @@ require_once('./php/info.php');
 $parts=parse_url($_SERVER['REQUEST_URI']); 
 $page_url=explode('/', $parts['path']);
 $url = $page_url[count($page_url)-1];
-//$url = "tokyo-revengers-episode-22";
+//$url = "naruto-episode-112";
 $json = file_get_contents("$apiLink/getEpisode/$url");
 $anime = json_decode($json, true);
 $ep_num = $anime['ep_num'];
@@ -51,7 +51,6 @@ $episodeArray = $fetchDetails['episode_id'];
   <?php require_once('./php/advertisments/popup.html'); ?>
 
 </head>
-<?php echo $episodeArray['episodeId']?>
 <body>
     <div class="clr"></div>
     <div id="wrapper_inside">
@@ -118,7 +117,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                         <div class="anime_video_body_watch_items load">
                                             <div class="play-video">
                                                 <iframe
-                                                    src="https://animexninja-api.dhvitop.repl.co/watch/<?=$categoryURL?>/<?=$ep_num?>"
+                                                    src="https://anikatsu.ga/player/v1.php?id=<?=$url?>&download=<?=$anime['ep_download']?>"
                                                     allowfullscreen="true" frameborder="0" marginwidth="0"
                                                     marginheight="0" scrolling="no"></iframe>
                                             </div>
@@ -148,7 +147,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                     <ul>
                                         <li class="anime">
                                             <a href="#" class="active" rel="1"
-                                                data-video="https://animexninja-api.dhvitop.repl.co/watch/<?=$categoryURL?>/<?=$ep_num?>"><i
+                                                data-video="https://anikatsu.ga/player/v1.php?id=<?=$url?>&download=<?=$anime['ep_download']?>"><i
                                                     class="iconlayer-server hydrax"></i>No Ads<span>Choose this
                                                     server</span></a>
                                         </li>
@@ -184,7 +183,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                                 async></script>
                                             <div id="specialButton" class="specialButton">
                                                 <span class="txt">Show</span> <a
-                                                    href="<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>#disqus_thread">Comments
+                                                    href="<?=$base_url?><?=$url?>#disqus_thread">Comments
                                                 </a>
                                             </div>
                                         </div>
@@ -195,7 +194,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                         </div>
                                         <script>
                                             var disqus_config = function () {
-                                                this.page.url = '<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>';
+                                                this.page.url = '<?=$base_url?><?=$url?>';
                                             };
                                             (function () {  // DON'T EDIT BELOW THIS LINE
                                                 var d = document, s = d.createElement('script');
@@ -237,17 +236,6 @@ $episodeArray = $fetchDetails['episode_id'];
 
                     </section>
                     <section class="content_right">
-                        <div class="headnav_center">
-                            <div class="anime_name adsverting">
-                                <i class="icongec-adsverting i_pos"></i>
-                                <h2>ADVERTISEMENTS</h2>
-                            </div>
-                            <div class="headnav_items">
-                          
-                                <?php require_once('./php/sidenav/advertisment.htm'); ?>
-                                <div class="clr"></div>
-                            </div>
-                        </div>
 
                         <div class="clr"></div>
                         <div class="main_body">
@@ -267,7 +255,7 @@ $episodeArray = $fetchDetails['episode_id'];
                                         </div>
                                         <div class="viewport">
                                             <div class="overview">
-                                               <?php require_once('./php/sidenav/recentRelease.php'); ?>
+                                               <?php require_once('./php/include/recentRelease.php'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -327,7 +315,7 @@ $episodeArray = $fetchDetails['episode_id'];
                             window.onload = abcd;
                             window.onscroll = scrollFunction;
                         </script>
-                        <?php require_once('./php/sidenav/sub-category.html'); ?>
+                        <?php require_once('./php/include/sub-category.html'); ?>
                     </section>
                 </section>
                 <div class="clr"></div>

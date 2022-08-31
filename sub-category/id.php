@@ -2,7 +2,9 @@
 require_once('../php/info.php'); 
 $parts=parse_url($_SERVER['REQUEST_URI']); 
 $page_url=explode('/', $parts['path']);
-$genre = $page_url[count($page_url)-1]  ;
+$id = $page_url[count($page_url)-1];
+//$id = "winter-2022-anime";
+$subCategory = str_replace("-", " ", $id);
 $page = $_GET['page']; 
 if ($page == ""){
     $page = 1;
@@ -17,25 +19,25 @@ if ($page == ""){
         <link rel="shortcut icon" href="<?=$base_url?>/img/favicon.ico">
 
 
-        <title>List genre <?=$genre?> at Gogoanime</title>
+        <title>List of <?=$subCategory?> at Gogoanime</title>
 
         <meta name="robots" content="noodp, noydir" />
-        <meta name="description" content="List genre <?=$genre?> at Gogoanime">
+        <meta name="description" content="List of <?=$subCategory?> at Gogoanime">
         <meta name="keywords" content="List genre Anime, Anime Movies">
         <meta itemprop="image" content="<?=$base_url?>/img/logo.png" />
 
         <meta property="og:site_name" content="Gogoanime" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="List genre <?=$genre?> at Gogoanime" />
-        <meta property="og:description" content="List genre <?=$genre?> at Gogoanime">
+        <meta property="og:title" content="List of <?=$subCategory?> at Gogoanime" />
+        <meta property="og:description" content="List of <?=$subCategory?> at Gogoanime">
         <meta property="og:url" content="" />
         <meta property="og:image" content="<?=$base_url?>/img/logo.png" />
         <meta property="og:image:secure_url" content="<?=$base_url?>/img/logo.png" />
 
         <meta property="twitter:card" content="summary" />
-        <meta property="twitter:title" content="List genre <?=$genre?> at Gogoanime" />
-        <meta property="twitter:description" content="List genre <?=$genre?> at Gogoanime" />
+        <meta property="twitter:title" content="List of <?=$subCategory?> at Gogoanime" />
+        <meta property="twitter:description" content="List of <?=$subCategory?> at Gogoanime" />
 
         <link rel="canonical" href="<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>" />
         <link rel="alternate" hreflang="en-us" href="<?=$base_url?><?php echo $_SERVER['REQUEST_URI'] ?>" />
@@ -66,31 +68,18 @@ if ($page == ""){
                                                 <div class="main_body">
                                                         <div class="anime_name anime_movies">
                                                                 <i class="icongec-anime_movies i_pos"></i>
-                                                                <h2>genre <?=$genre?></h2>
+                                                                <h2><?=$subCategory?></h2>
                                                                 <div class="anime_name_pagination">
                                                                         <div class="pagination">
-                                                                                <ul class='pagination-list'>
-                                                                                <?php 
-                                                                                        // include the PaginationLinks class
-                                                                                        require_once '../php/pagination.php';
-                                                                                        
-                                                                                        // output the links for page 5 of 9, with custom formatting
-                                                                                        echo PaginationLinks::create(
-                                                                                            $page,
-                                                                                            $$genre,
-                                                                                            1,
-                                                                                            '<li><a href="?page=%d">%d</a></li>',
-                                                                                            '<li class="selected"><a href"?page='.$page.'">%d</a></li>',
-                                                                                            '<li><a>..</a></li>');
-                                                                                ?>
-                                                                                </ul>
+                                                                                <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/subCategoryPage/$id/$page");$pagination = json_decode($pagination, true); echo str_replace("active","selected",$pagination['pagination']) ?>
+                                                                               
                                                                         </div>
                                                                 </div>
                                                         </div>
                                                         <div class="last_episodes">
                                                                 <ul class="items">
                                                                 <?php
-                                                                    $json = file_get_contents("$apiLink/getGenre/$genre/$page");
+                                                                    $json = file_get_contents("$apiLink/getSubCategory/$id/$page");
                                                                     $json = json_decode($json, true);
                                                                     foreach($json as $genre)  { 
                                                                 ?>
@@ -99,13 +88,13 @@ if ($page == ""){
                                                                                 <div class="img">
                                                                                         <a href="/category/<?=$genre['animeId']?>"
                                                                                                 title="<?=$genre['animeTitle']?>">
-                                                                                                <img src="<?=$genre['animeImg']?>"
+                                                                                                <img src="<?=$genre['imgUrl']?>"
                                                                                                         alt="<?=$genre['animeTitle']?>" />
                                                                                         </a>
                                                                                 </div>
-                                                                                <p class="name"><a href="//category/<?=$genre['animeId']?>" title="<?=$genre['animeTitle']?>"><?=$genre['animeTitle']?></a>
+                                                                                <p class="name"><a href="/category/<?=$genre['animeId']?>" title="<?=$genre['animeTitle']?>"><?=$genre['animeTitle']?></a>
                                                                                 </p>
-                                                                                <p class="released"><?=$genre['releasedDate']?></p>
+                                                                                <p class="released"><?=$genre['status']?></p>
                                                                         </li>
                                                                 <?php } ?>
                                                                 </ul>
@@ -114,13 +103,7 @@ if ($page == ""){
 
                                         </section>
                                         <section class="content_right">
-                                                <div class="headnav_center">
-                                                        <div class="anime_name adsverting">
-                                                                <i class="icongec-adsverting i_pos"></i>
-                                                                <h2>ADVERTISEMENTS</h2>
-                                                        </div>
-                                                        <?php require_once('../php/sidenav/advertisment.htm');?>
-                                                </div>
+                                        
 
                                                 <div class="clr"></div>
                                                 <div class="main_body">
@@ -143,7 +126,7 @@ if ($page == ""){
                                                                                 </div>
                                                                                 <div class="viewport">
                                                                                         <div class="overview">
-                                                                                                <?php require_once('../php/sidenav/recentRelease.php'); ?>
+                                                                                                <?php require_once('../php/include/recentRelease.php'); ?>
                                                                                         </div>
                                                                                 </div>
                                                                         </div>
@@ -204,7 +187,7 @@ if ($page == ""){
                                                         window.onload = abcd;
                                                         window.onscroll = scrollFunction;
                                                 </script>
-                                                <?php require_once('../php/sidenav/sub-category.html');?>
+                                                <?php require_once('../php/include/sub-category.html');?>
                                         </section>
                                 </section>
                                 <div class="clr"></div>

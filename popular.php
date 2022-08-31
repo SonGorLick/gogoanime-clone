@@ -68,21 +68,8 @@ if ($page == ""){
                                 <h2>ANIME popular</h2>
                                 <div class="anime_name_pagination">
                                     <div class="pagination">
-                                        <ul class='pagination-list'>
-                                        <?php 
-                                            // include the PaginationLinks class
-                                            require_once './php/pagination.php';
-                                            
-                                            // output the links for page 5 of 9, with custom formatting
-                                            echo PaginationLinks::create(
-                                                $page,
-                                                $popularPg,
-                                                1,
-                                                '<li><a href="?page=%d">%d</a></li>',
-                                                '<li class="selected"><a href"?page='.$page.'">%d</a></li>',
-                                                '<li><a>..</a></li>');
-                                        ?>
-                                        </ul>
+                                        <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/popularPage/$page");$pagination = json_decode($pagination, true); echo str_replace("active","selected",$pagination['pagination']) ?>
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -105,13 +92,6 @@ if ($page == ""){
 
                     </section>
                     <section class="content_right">
-                        <div class="headnav_center">
-                            <div class="anime_name adsverting">
-                                <i class="icongec-adsverting i_pos"></i>
-                                <h2>ADVERTISEMENTS</h2>
-                            </div>
-                            <?php require_once('./php/sidenav/advertisment.htm'); ?>
-                        </div>
 
                         <div class="clr"></div>
                         <div class="main_body">
@@ -132,7 +112,7 @@ if ($page == ""){
                                         </div>
                                         <div class="viewport">
                                             <div class="overview">
-                                            <?php require_once('./php/sidenav/recentRelease.php'); ?>
+                                            <?php require_once('./php/include/recentRelease.php'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +173,7 @@ if ($page == ""){
                             window.onload = abcd;
                             window.onscroll = scrollFunction;
                         </script>
-                        <?php require_once('./php/sidenav/sub-category.html'); ?>
+                        <?php require_once('./php/include/sub-category.html'); ?>
                     </section>
                 </section>
                 <div class="clr"></div>
@@ -222,11 +202,7 @@ if ($page == ""){
     <div class="mask"></div>
     <script type="text/javascript" src="<?=$base_url?>/js/files/combo.js"></script>
     <script type="text/javascript" src="<?=$base_url?>/js/files/jquery.tinyscrollbar.min.js"></script>
-    <div class="notice-400"
-    style=" z-index:99999;position: fixed;bottom: 0;text-align: center;width: 100%; left: 0;padding: 10px;background: #939393;color: white;">
-    We moved site to <a href="<?=$base_url?>" title="Gogoanime" alt="Gogoanime"
-      style="color: #ffc119"><?=$website_name?></a>. Please bookmark new site. Thank you!
-    </div>
+    <?php include('/php/include/footer.php')?>
 
     <script>
         if (document.getElementById('scrollbar2')) {

@@ -1,5 +1,5 @@
 <?php 
-require_once('./php/info.php'); 
+require_once('../php/info.php'); 
 $page = $_GET['page']; 
 if ($page == ""){
     $page = 1;
@@ -40,7 +40,7 @@ if ($page == ""){
 
 
         <link rel="stylesheet" type="text/css" href="<?=$base_url?>/css/style.css?v=6.9" />
-        <?php require_once('./php/advertisments/popup.html'); ?>
+        <?php require_once('../php/advertisments/popup.html'); ?>
 
         <script type="text/javascript" src="<?=$base_url?>/js/libraries/jquery.js"></script>
         <script>
@@ -56,7 +56,7 @@ if ($page == ""){
         <div id="wrapper_inside">
                 <div id="wrapper">
                         <div id="wrapper_bg">
-                                <?php require_once('./php/include/header.php'); ?>
+                                <?php require_once('../php/include/header.php'); ?>
                                 <section class="content">
                                         <section class="content_left">
 
@@ -66,21 +66,8 @@ if ($page == ""){
                                                                 <h2>COMPLETED ANIME</h2>
                                                                 <div class="anime_name_pagination">
                                                                         <div class="pagination">
-                                                                                <ul class='pagination-list'>
-                                                                                <?php 
-                                                                                        // include the PaginationLinks class
-                                                                                        require_once './php/pagination.php';
-                                                                                        
-                                                                                        // output the links for page 5 of 9, with custom formatting
-                                                                                        echo PaginationLinks::create(
-                                                                                            $page,
-                                                                                            $completedPages,
-                                                                                            1,
-                                                                                            '<li><a href="?page=%d">%d</a></li>',
-                                                                                            '<li class="selected"><a href"?page='.$page.'">%d</a></li>',
-                                                                                            '<li><a>..</a></li>');
-                                                                                ?>
-                                                                                </ul>
+                                                                                <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/completedPage/$page");$pagination = json_decode($pagination, true); echo str_replace("active","selected",$pagination['pagination']) ?>
+                                                                        
                                                                         </div>
                                                                 </div>
                                                         </div>
@@ -93,13 +80,13 @@ if ($page == ""){
                                                                 ?>
                                                                         <li>
                                                                             <div class="img">
-                                                                                        <a href="<?=$completedA['animeId']?>"
+                                                                                        <a href="/category/<?=$completedA['animeId']?>"
                                                                                                 title="<?=$completedA['animeTitle']?>">
                                                                                                 <img src="<?=$completedA['imgUrl']?>" alt="<?=$completedA['animeTitle']?>" />
                                                                                         </a>
                                                                                 </div>
                                                                                 <p class="name"><a
-                                                                                                href="/<?=$completedA['animeId']?>"
+                                                                                                href="/category/<?=$completedA['animeId']?>"
                                                                                                 title="<?=$completedA['animeTitle']?>"><?=$completedA['animeTitle']?></a></p>
                                                                                 <p class="released">
                                                                                     <?=$completedA['status']?>
@@ -113,14 +100,6 @@ if ($page == ""){
 
                                         </section>
                                         <section class="content_right">
-                                                <div class="headnav_center">
-                                                        <div class="anime_name adsverting">
-                                                                <i class="icongec-adsverting i_pos"></i>
-                                                                <h2>ADVERTISEMENTS</h2>
-                                                        </div>
-                                                        <?php require_once('./php/sidenav/advertisment.htm'); ?>
-                                                </div>
-
                                                 <div class="clr"></div>
                                                 <div class="main_body">
                                                         <div class="main_body_black">
@@ -142,7 +121,7 @@ if ($page == ""){
                                                                                 </div>
                                                                                 <div class="viewport">
                                                                                         <div class="overview">
-                                                                                        <?php require_once('./php/sidenav/recentRelease.php'); ?>
+                                                                                        <?php require_once('../php/include/recentRelease.php'); ?>
                                                                                         </div>
                                                                                 </div>
                                                                         </div>
@@ -203,7 +182,7 @@ if ($page == ""){
                                                         window.onload = abcd;
                                                         window.onscroll = scrollFunction;
                                                 </script>
-                                                <?php require('./php/sidenav/sub-category.html'); ?>
+                                                <?php require('../php/include/sub-category.html'); ?>
                                         </section>
                                 </section>
                                 <div class="clr"></div>

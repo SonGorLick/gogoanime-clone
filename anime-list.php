@@ -60,18 +60,7 @@ if ($page == ""){
                                 <h2>ANIME LIST</h2>
                                 <div class="anime_name_pagination">
                                     <div class="pagination">
-                                        <ul class='pagination-list'>
-                                        <?php 
-                                        require_once './php/pagination.php';
-                                        echo PaginationLinks::create(
-                                            $page,
-                                            $animeList,
-                                            1,
-                                            '<li><a href="?page=%d">%d</a></li>',
-                                            '<li class="selected"><a href"?page='.$page.'">%d</a></li>',
-                                            '<li><a>..</a></li>');
-                                        ?>
-                                        </ul>
+                                    <ul class='pagination-list'><?php $pagination = file_get_contents("$apiLink/allAnimeListPage/$page");$pagination = json_decode($pagination, true); echo str_replace("active","selected",$pagination['pagination']) ?>
                                     </div>
                                 </div>
                             </div>
@@ -177,13 +166,7 @@ if ($page == ""){
 
                     </section>
                     <section class="content_right">
-                        <div class="headnav_center">
-                            <div class="anime_name adsverting">
-                                <i class="icongec-adsverting i_pos"></i>
-                                <h2>ADVERTISEMENTS</h2>
-                            </div>
-                            <?php require_once('./php/sidenav/advertisment.htm'); ?>
-                        </div>
+                        
 
                         <div class="clr"></div>
                         <div class="main_body">
@@ -204,7 +187,7 @@ if ($page == ""){
                                         </div>
                                         <div class="viewport">
                                             <div class="overview">
-                                            <?php require_once('./php/sidenav/recentRelease.php'); ?>
+                                            <?php require_once('./php/include/recentRelease.php'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -265,7 +248,7 @@ if ($page == ""){
                             window.onload = abcd;
                             window.onscroll = scrollFunction;
                         </script>
-                        <?php require_once('./php/sidenav/sub-category.html'); ?>
+                        <?php require_once('./php/include/sub-category.html'); ?>
                     </section>
                 </section>
                 <div class="clr"></div>

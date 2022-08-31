@@ -1,0 +1,26 @@
+{
+  "name": "gogoanime-api",
+  "version": "1.0.0",
+  "description": "GogoAnime Scrapper (Currently Using In gogoanimetv.ga)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shashankktiwariii/gogoanime-api.git"
+  },
+  "author": "Shashank Tiwari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shashankktiwariii/gogoanime-api/issues"
+  },
+  "homepage": "https://github.com/shashank-3/api-indianime#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.1"
+  }
+}
